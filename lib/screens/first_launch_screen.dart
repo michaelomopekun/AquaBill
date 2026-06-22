@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import '../models/invoice_models.dart';
 import '../theme/app_theme.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../widgets/brutal_button.dart';
 import '../widgets/brutal_card.dart';
 import '../widgets/brutal_text_field.dart';
@@ -71,10 +72,9 @@ class _FirstLaunchScreenState extends State<FirstLaunchScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'FISH SALES',
-                      style: TextStyle(
-                        fontFamily: 'Lakki Reddy',
+                      style: GoogleFonts.lakkiReddy(
                         fontSize: 28,
                         fontWeight: FontWeight.w900,
                       ),
@@ -104,22 +104,21 @@ class _FirstLaunchScreenState extends State<FirstLaunchScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "LET'S GET STARTED",
-                      style: TextStyle(
+                      style: GoogleFonts.spaceGrotesk(
                         fontWeight: FontWeight.w900,
                         fontSize: 16,
-                        fontFamily: "Space Grotesk",
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       "We just need a few details to continue the setup of your industrial billing terminal.",
-                      style: TextStyle(
+                      style: GoogleFonts.caveat(
                         fontStyle: FontStyle.normal,
                         fontWeight: FontWeight.w500,
-                        fontFamily: "Story Script",
                         color: AppTheme.solidBlack.withOpacity(0.8),
+                        fontSize: 16,
                         height: 1.4,
                       ),
                     ),
@@ -154,19 +153,18 @@ class _FirstLaunchScreenState extends State<FirstLaunchScreen> {
                   ), // Dashed effect not native without package, using solid for now
                   color: AppTheme.primaryBlue.withOpacity(0.05),
                 ),
-                child: const Row(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.lock_outline, size: 20),
-                    SizedBox(width: 12),
+                    const Icon(Icons.lock_outline, size: 20),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: Text(
                         "THIS INFORMATION IS STORED ONLY ON THIS DEVICE. NO EXTERNAL DATA TRANSMISSION IS AUTHORIZED FOR THIS MODULE.",
-                        style: TextStyle(
+                        style: GoogleFonts.spaceMono(
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
                           height: 1.5,
-                          fontFamily: "Space Mono",
                         ),
                       ),
                     ),
