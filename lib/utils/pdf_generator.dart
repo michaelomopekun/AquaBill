@@ -9,12 +9,15 @@ import '../models/invoice_models.dart';
 import '../providers/invoice_provider.dart';
 
 class PdfGenerator {
-  static Future<void> generateAndShareInvoice(InvoiceProvider provider, String invoiceId) async {
+  static Future<void> generateAndShareInvoice(
+    InvoiceProvider provider,
+    String invoiceId,
+  ) async {
     final pdf = pw.Document();
-    
+
     final vendorBox = Hive.box<VendorDetails>('vendorBox');
     final vendor = vendorBox.get('currentVendor');
-    
+
     final dateStr = DateFormat('MMM dd, yyyy').format(provider.invoiceDate);
 
     pdf.addPage(
@@ -40,7 +43,7 @@ class PdfGenerator {
                   ),
                 ),
                 pw.SizedBox(height: 24),
-                
+
                 // Vendor & Buyer Info
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -48,17 +51,47 @@ class PdfGenerator {
                     pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
-                        pw.Text('VENDOR', style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold)),
-                        pw.Text(vendor?.name ?? '', style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold)),
-                        pw.Text(vendor?.phone ?? ''),
+                        pw.Text(
+                          'VENDOR',
+                          style: pw.TextStyle(
+                            fontSize: 10,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                        pw.Text(
+                          vendor?.name ?? '',
+                          style: pw.TextStyle(
+                            fontSize: 16,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                        pw.Text(
+                          vendor?.phone ?? '',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
                       ],
                     ),
                     pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.end,
                       children: [
-                        pw.Text('INVOICE #', style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold)),
-                        pw.Text(invoiceId, style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold)),
-                        pw.Text('DATE: $dateStr'),
+                        pw.Text(
+                          'INVOICE #',
+                          style: pw.TextStyle(
+                            fontSize: 10,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                        pw.Text(
+                          invoiceId,
+                          style: pw.TextStyle(
+                            fontSize: 16,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                        pw.Text(
+                          'DATE: $dateStr',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
                       ],
                     ),
                   ],
@@ -66,16 +99,38 @@ class PdfGenerator {
                 pw.SizedBox(height: 24),
                 pw.Divider(thickness: 2),
                 pw.SizedBox(height: 12),
-                
-                pw.Text('BUYER ID/NAME', style: pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold)),
-                pw.Text(provider.buyerName, style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold)),
-                
+
+                pw.Text(
+                  'BUYER ID/NAME',
+                  style: pw.TextStyle(
+                    fontSize: 10,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+                pw.Text(
+                  provider.buyerName,
+                  style: pw.TextStyle(
+                    fontSize: 20,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+
                 pw.SizedBox(height: 24),
                 pw.Divider(thickness: 2),
                 pw.SizedBox(height: 16),
-                
+
                 // Items
                 ...provider.items.map((item) {
+                  final sizeMap = {
+                    'B': 'BIG',
+                    'M': 'MEDIUM',
+                    'S': 'SMALL',
+                    'SS': 'SMALLESS',
+                    'ST': 'STANDARD TINY',
+                    'TT': 'TINYTINY',
+                  };
+                  final fullName = sizeMap[item.fishSize] ?? item.fishSize;
+
                   return pw.Padding(
                     padding: const pw.EdgeInsets.only(bottom: 16),
                     child: pw.Row(
@@ -84,31 +139,55 @@ class PdfGenerator {
                         pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
-                            pw.Text('SIZE: ${item.fishSize}', style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold)),
-                            pw.Text('${item.containerCount} x ${item.avgKgPerContainer}KG @ NGN ${item.pricePerKg.toStringAsFixed(2)}'),
+                            pw.Text(
+                              'SIZE: $fullName',
+                              style: pw.TextStyle(
+                                fontSize: 16,
+                                fontWeight: pw.FontWeight.bold,
+                              ),
+                            ),
+                            pw.Text(
+                              '${item.containerCount} x ${item.avgKgPerContainer}KG @ NGN ${item.pricePerKg.toStringAsFixed(2)}',
+                              style: pw.TextStyle(
+                                fontSize: 16,
+                                fontWeight: pw.FontWeight.bold,
+                              ),
+                            ),
                           ],
                         ),
                         pw.Text(
                           'NGN ${item.subtotal.toStringAsFixed(2)}',
-                          style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold),
+                          style: pw.TextStyle(
+                            fontSize: 18,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
                   );
                 }).toList(),
-                
+
                 pw.SizedBox(height: 24),
                 pw.Divider(thickness: 4),
                 pw.SizedBox(height: 16),
-                
+
                 // Grand Total
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Text('GRAND TOTAL', style: pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold)),
+                    pw.Text(
+                      'GRAND TOTAL',
+                      style: pw.TextStyle(
+                        fontSize: 14,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
                     pw.Text(
                       'NGN ${provider.grandTotal.toStringAsFixed(2)}',
-                      style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold),
+                      style: pw.TextStyle(
+                        fontSize: 24,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -124,9 +203,8 @@ class PdfGenerator {
     final file = File('${output.path}/invoice_$invoiceId.pdf');
     await file.writeAsBytes(await pdf.save());
 
-    await Share.shareXFiles(
-      [XFile(file.path)],
-      text: 'Here is your invoice ($invoiceId)',
-    );
+    await Share.shareXFiles([
+      XFile(file.path),
+    ], text: 'Here is your invoice ($invoiceId)');
   }
 }

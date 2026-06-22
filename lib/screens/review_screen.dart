@@ -29,8 +29,67 @@ class _ReviewScreenState extends State<ReviewScreen> {
   void _exportPdf() async {
     final provider = context.read<InvoiceProvider>();
     await PdfGenerator.generateAndShareInvoice(provider, _invoiceId);
-    
-    // Optionally reset and go back to home, but for now just let them share.
+  }
+
+  void _showExportMenu() {
+    showDialog(
+      context: context,
+      barrierColor: Colors.transparent, // mimicking a popup menu
+      builder: (context) {
+        return Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 90.0, right: 24.0),
+            child: Material(
+              color: Colors.transparent,
+              child: IntrinsicWidth(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppTheme.pureWhite,
+                    border: Border.all(color: AppTheme.solidBlack, width: 3),
+                    boxShadow: const [
+                      BoxShadow(color: AppTheme.solidBlack, offset: Offset(4, 4)),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          _exportPdf();
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+                          child: Text('EXPORT AS PDF', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.0)),
+                        ),
+                      ),
+                      const Divider(color: AppTheme.solidBlack, thickness: 3, height: 3),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Export as image', style: TextStyle(fontWeight: FontWeight.bold)),
+                              backgroundColor: AppTheme.solidBlack,
+                            ),
+                          );
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+                          child: Text('EXPORT AS IMAGE', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12, letterSpacing: 1.0)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    );
   }
 
   @override
@@ -164,9 +223,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: BrutalButton(
-                    text: 'EXPORT PDF',
-                    trailingIcon: const Icon(Icons.ios_share, color: AppTheme.pureWhite, size: 20),
-                    onPressed: _exportPdf,
+                    text: 'EXPORT',
+                    trailingIcon: const Icon(Icons.keyboard_arrow_up, color: AppTheme.pureWhite, size: 20),
+                    onPressed: _showExportMenu,
                   ),
                 ),
               ],
