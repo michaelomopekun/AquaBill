@@ -5,6 +5,7 @@ import '../providers/invoice_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/brutal_button.dart';
 import '../widgets/brutal_text_field.dart';
+import 'first_launch_screen.dart';
 import 'line_item_entry_screen.dart';
 
 class InvoiceSetupScreen extends StatefulWidget {
@@ -83,7 +84,9 @@ class _InvoiceSetupScreenState extends State<InvoiceSetupScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const FirstLaunchScreen()),
+          ),
         ),
         title: const Text('INVOICE SETUP'),
       ),
