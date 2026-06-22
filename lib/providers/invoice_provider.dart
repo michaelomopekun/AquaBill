@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:ola_fish_invoice_generator/models/invoice_models.dart';
+import '../models/invoice_models.dart';
 
 class InvoiceProvider with ChangeNotifier {
   String _buyerName = '';

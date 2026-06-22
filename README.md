@@ -1,4 +1,4 @@
-# ola_fish_invoice_generator
+# aquabill
 
 A new Flutter project.
 

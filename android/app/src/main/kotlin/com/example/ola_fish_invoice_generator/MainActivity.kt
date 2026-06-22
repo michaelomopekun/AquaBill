@@ -1,4 +1,4 @@
-package com.example.ola_fish_invoice_generator
+package com.example.aquabill
 
 import io.flutter.embedding.android.FlutterActivity
 
