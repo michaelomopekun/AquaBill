@@ -147,7 +147,7 @@ class PdfGenerator {
                               ),
                             ),
                             pw.Text(
-                              '${item.containerCount} x ${item.avgKgPerContainer}KG @ NGN ${item.pricePerKg.toStringAsFixed(2)}',
+                              '${item.containerCount} x ${item.avgKgPerContainer}KG @ NGN ${NumberFormat("#,##0.00", "en_US").format(item.pricePerKg)}',
                               style: pw.TextStyle(
                                 fontSize: 16,
                                 fontWeight: pw.FontWeight.bold,
@@ -156,7 +156,7 @@ class PdfGenerator {
                           ],
                         ),
                         pw.Text(
-                          'NGN ${item.subtotal.toStringAsFixed(2)}',
+                          'NGN ${NumberFormat("#,##0.00", "en_US").format(item.subtotal)}',
                           style: pw.TextStyle(
                             fontSize: 18,
                             fontWeight: pw.FontWeight.bold,
@@ -183,7 +183,7 @@ class PdfGenerator {
                       ),
                     ),
                     pw.Text(
-                      'NGN ${provider.grandTotal.toStringAsFixed(2)}',
+                      'NGN ${NumberFormat("#,##0.00", "en_US").format(provider.grandTotal)}',
                       style: pw.TextStyle(
                         fontSize: 24,
                         fontWeight: pw.FontWeight.bold,

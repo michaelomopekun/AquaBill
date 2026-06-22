@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 import '../models/invoice_models.dart';
 import '../providers/invoice_provider.dart';
 import '../theme/app_theme.dart';
@@ -222,7 +223,7 @@ class _LineItemEntryScreenState extends State<LineItemEntryScreen> {
                   ),
                 ),
                 Text(
-                  '₦${_subtotal.toStringAsFixed(2)}',
+                  '₦${NumberFormat("#,##0.00", "en_US").format(_subtotal)}',
                   style: const TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 32,

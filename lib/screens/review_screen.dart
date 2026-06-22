@@ -262,29 +262,31 @@ class _ReviewScreenState extends State<ReviewScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'SIZE: $fullName',
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 1.0,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'SIZE: $fullName',
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 1.0,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    '${item.containerCount} x ${item.avgKgPerContainer}KG @ ₦${item.pricePerKg.toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13,
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      '${item.containerCount} x ${item.avgKgPerContainer}KG @ ₦${NumberFormat("#,##0.00", "en_US").format(item.pricePerKg)}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                               Text(
-                                '=₦${item.subtotal.toStringAsFixed(2)}',
+                                '=₦${NumberFormat("#,##0.00", "en_US").format(item.subtotal)}',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 14,
@@ -312,7 +314,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       const SizedBox(height: 8),
                       Center(
                         child: Text(
-                          '₦${provider.grandTotal.toStringAsFixed(2)}',
+                          '₦${NumberFormat("#,##0.00", "en_US").format(provider.grandTotal)}',
                           style: const TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.w900,
