@@ -62,11 +62,12 @@ class _FirstLaunchScreenState extends State<FirstLaunchScreen> {
                   children: [
                     Container(
                       decoration: AppTheme.brutalBox(),
-                      padding: const EdgeInsets.all(16),
-                      child: const Icon(
-                        Icons.sailing,
-                        size: 80,
-                        color: AppTheme.primaryBlue,
+                      clipBehavior: Clip.hardEdge,
+                      child: Image.asset(
+                        'assets/images/AquaBill_logo.png',
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     const SizedBox(height: 16),
