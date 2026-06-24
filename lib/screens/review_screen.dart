@@ -248,7 +248,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         final sizeMap = {
                           'B': 'BIG',
                           'M': 'MEDIUM',
-                          'S': 'SMALL',
+                          'SM': 'SMALL',
                           'SS': 'SMALLESS',
                           'ST': 'STANDARD TINY',
                           'TT': 'TINYTINY',

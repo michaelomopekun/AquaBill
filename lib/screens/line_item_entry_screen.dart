@@ -18,7 +18,7 @@ class LineItemEntryScreen extends StatefulWidget {
 
 class _LineItemEntryScreenState extends State<LineItemEntryScreen> {
   String _selectedSize = 'B';
-  final List<String> _sizes = ['B', 'M', 'S', 'SS', 'ST', 'TT'];
+  final List<String> _sizes = ['B', 'M', 'SM', 'SS', 'ST', 'TT'];
   
   final _countController = TextEditingController();
   final _weightController = TextEditingController();
